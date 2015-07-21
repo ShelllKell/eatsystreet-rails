@@ -16,9 +16,11 @@ ActiveRecord::Schema.define(version: 20150716214401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.integer "x_bowtie_user_id"
-    t.string  "cuisine_preference"
+  create_table "user_preferences", force: :cascade do |t|
+    t.string "bowtie_user_id"
+    t.string "cuisine_preference"
   end
+
+  add_index "user_preferences", ["bowtie_user_id"], name: "index_user_preferences_on_bowtie_user_id", using: :btree
 
 end

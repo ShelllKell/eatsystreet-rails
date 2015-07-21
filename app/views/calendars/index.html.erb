@@ -1,0 +1,61 @@
+<h1>Choose Dinner Time: </h1>
+
+<table>
+  Monday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+</table>
+<p>
+<table>
+  Tuesday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+</table>
+<p>
+<table>
+  Wednesday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+</table>
+<p>
+<table>
+  Thursday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+</table>
+<p>
+<table>
+  Friday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+</table>
+
+
+<% @items.each do |s| %>
+  <ul><%= s["summary"] %> | <%= s["start"]["dateTime"] %></ul>
+<% end %>

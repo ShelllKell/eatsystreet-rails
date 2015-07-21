@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  resources :preferences, only: [:index]
+  resources :user_preferences
+  resources :calendars
 end
