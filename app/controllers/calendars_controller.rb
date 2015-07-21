@@ -13,6 +13,7 @@ class CalendarsController < ApplicationController
 
     response = JSON.parse(@result.body)
     @items = response["items"]
+
   end
 
 end
