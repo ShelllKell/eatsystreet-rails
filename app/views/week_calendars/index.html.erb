@@ -1,0 +1,123 @@
+<h1>Choose Dinner Time: </h1>
+
+<table>
+  Monday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+
+  <tr>
+    <td>
+      <% @events.each do |event| %>
+        <% if event.monday? && event.hour == 17 %>
+          <%= event.name %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<table>
+  Tuesday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+
+  <tr>
+    <td>
+      <% @events.each do |event| %>
+        <%= event.day %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if Date.today + 1 > event.day %>
+          <%= event.day_of_week %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<table>
+  Monday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+
+  <tr>
+    <td>
+      <% @events.each do |event| %>
+        <%= event.day %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if Date.today + 1 > event.day %>
+          <%= event.day_of_week %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<table>
+  Monday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+
+  <tr>
+    <td>
+      <% @events.each do |event| %>
+        <%= event.day %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if Date.today + 1 > event.day %>
+          <%= event.day_of_week %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<table>
+  Monday
+  <tr>
+    <th>5pm</th>
+    <th>6pm</th>
+    <th>7pm</th>
+    <th>8pm</th>
+    <th>9pm</th>
+  </tr>
+
+  <tr>
+    <td>
+      <% @events.each do |event| %>
+        <%= event.day %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if Date.today + 1 > event.day %>
+          <%= event.day_of_week %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+ <!-- update link   -->

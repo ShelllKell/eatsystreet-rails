@@ -1,7 +1,8 @@
-<h1>Choose Dinner Time: </h1>
+<h1><%= Time.now.strftime("%A") %></h1>
+
+<h4>Choose Dinner Time for Tonight: </h4>
 
 <table>
-  Monday
   <tr>
     <th>5pm</th>
     <th>6pm</th>
@@ -9,53 +10,42 @@
     <th>8pm</th>
     <th>9pm</th>
   </tr>
-</table>
-<p>
-<table>
-  Tuesday
-  <tr>
-    <th>5pm</th>
-    <th>6pm</th>
-    <th>7pm</th>
-    <th>8pm</th>
-    <th>9pm</th>
-  </tr>
-</table>
-<p>
-<table>
-  Wednesday
-  <tr>
-    <th>5pm</th>
-    <th>6pm</th>
-    <th>7pm</th>
-    <th>8pm</th>
-    <th>9pm</th>
-  </tr>
-</table>
-<p>
-<table>
-  Thursday
-  <tr>
-    <th>5pm</th>
-    <th>6pm</th>
-    <th>7pm</th>
-    <th>8pm</th>
-    <th>9pm</th>
-  </tr>
-</table>
-<p>
-<table>
-  Friday
-  <tr>
-    <th>5pm</th>
-    <th>6pm</th>
-    <th>7pm</th>
-    <th>8pm</th>
-    <th>9pm</th>
-  </tr>
-</table>
 
-
-<% @items.each do |s| %>
-  <ul><%= s["summary"] %> | <%= s["start"]["dateTime"] %></ul>
-<% end %>
+  <tr>
+    <td>
+      <% @events.each do |event| %>
+        <% if event.today? && event.hour == 17 %>
+          <%= event.name %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if event.today? && event.hour == 18 %>
+          <%= event.name %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if event.today? && event.hour == 19 %>
+          <%= event.name %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if event.today? && event.hour == 20 %>
+          <%= event.name %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% @events.each do |event| %>
+        <% if event.today? && event.hour == 21 %>
+          <%= event.name %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
