@@ -1,10 +1,19 @@
 class Event
   class << self
 
-    def all_events(token)
-      result = api_client(token)
+    def all_events(token, start, stop)
+      client = api_client(token)
+      service = client.discovered_api('calendar', 'v3')
+      response = client.execute(
+        api_method: service.events.list,
+        parameters: {
+          'calendarId'  => 'primary',
+          'start.date'  => start.to_s,
+          'end.date'    => stop.to_s
+          }
+      )
 
-      response = JSON.parse(result.body)
+      response = JSON.parse(response.body)
 
       response["items"].collect { |event|
         Event.new(event)
@@ -18,11 +27,8 @@ class Event
     def api_client(token)
       client = Google::APIClient.new
       client.authorization.access_token = token
-      service = client.discovered_api('calendar', 'v3')
-      client.execute(
-        api_method: service.events.list,
-        parameters: {'calendarId' => 'primary'}
-      )
+      client
+
     end
   end
 

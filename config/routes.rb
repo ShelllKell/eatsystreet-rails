@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
   resources :user_preferences
-  resources :calendars
+  resource :calendar, only: [] do
+      get :week
+      get :day
+  end
+  resources :recipes
+
 end
