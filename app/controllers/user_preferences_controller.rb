@@ -9,12 +9,10 @@ class UserPreferencesController < ApplicationController
   end
 
   def create
-    @user_preference = UserPreference.new(user_preferences_params.update({
-      bowtie_user_id: current_bowtie_user_id
-    }))
+    @user_preference = UserPreference.find_or_initialize_by(bowtie_user_id: current_bowtie_user_id)
 
-    if @user_preference.save
-      redirect_to calendars_path
+    if @user_preference.update_attributes(user_preferences_params)
+      redirect_to week_calendar_path
     else
       render :new
     end

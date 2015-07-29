@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gem 'yummly'
 
-gem 'dotenv'
+gem 'dotenv-rails', '~> 2.0.2'
+
+gem 'rest-client', '~> 1.8.0'
 
 gem 'google-api-client', :require => 'google/api_client'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

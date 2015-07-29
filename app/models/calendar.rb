@@ -43,6 +43,10 @@ class Calendar
     def today?
       @date == Date.today
     end
+
+    def date
+      @date.to_time
+    end
   end
 
   class Hour

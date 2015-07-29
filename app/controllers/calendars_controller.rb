@@ -9,7 +9,7 @@ class CalendarsController < ApplicationController
   end
 
   def day
-
+    @calendar = Calendar.new(request.headers['HTTP_X_BOWTIE_USER_GOOGLE_OAUTH2_TOKEN'])
   end
 
 end

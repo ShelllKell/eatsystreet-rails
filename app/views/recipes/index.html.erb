@@ -1,0 +1,22 @@
+
+<% @recipes.each do |detail| %>
+  <ul>
+    Recipe Name:
+    <%= detail[0] %>
+  </ul>
+  <ul>
+    Rating:
+    <%= detail[1] %>
+  </ul>
+  <ul>
+    Ingredients:
+    <% detail[2].each do |ingredient| %>
+      <li><%= ingredient %></li>
+    <% end %>
+  </ul>
+  <ul>
+    Prep time:
+    <%= detail[3] / 60 %> minutes
+  </ul>
+____________________________________
+<% end %>

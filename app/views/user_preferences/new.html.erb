@@ -1,80 +1,9 @@
 <h1>Pick your cuisine preferences:</h1>
 
 <%= form_for @user_preference do |f| %>
-  <%= f.label "American" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "American", id: "user_preference_cuisine_preference_American" %>
-
-  <%= f.label "Italian" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Italian", id: "user_preference_cuisine_preference_Italian" %>
-
-  <%= f.label "Asian" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Asian", id: "user_preference_cuisine_preference_Asian" %>
-
-  <%= f.label "Mexican" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Mexican", id: "user_preference_cuisine_preference_Mexican" %>
-
-  <%= f.label "Southern & Soul Food" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Southern & Soul Food", id: "user_preference_cuisine_preference_Southern&SoulFood" %>
-
-  <%= f.label "French" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "French", id: "user_preference_cuisine_preference_French" %>
-
-  <%= f.label "Southwestern" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Southwestern", id: "user_preference_cuisine_preference_Southwestern" %>
-
-  <%= f.label "Barbeque" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Barbeque", id: "user_preference_cuisine_preference_Barbeque" %>
-
-  <%= f.label "Indian" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Indian", id: "user_preference_cuisine_preference_Indian" %>
-
-  <%= f.label "Chinese" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Chinese", id: "user_preference_cuisine_preference_Chinese" %>
-
-  <%= f.label "Cajun & Creole" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Cajun & Creole", id: "user_preference_cuisine_preference_Cajun&Creole" %>
-
-  <%= f.label "English" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "English", id: "user_preference_cuisine_preference_English" %>
-
-  <%= f.label "Mediterranean" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Mediterranean", id: "user_preference_cuisine_preference_Mediterranean" %>
-
-  <%= f.label "Greek" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Greek", id: "user_preference_cuisine_preference_Greek" %>
-
-  <%= f.label "Spanish" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Spanish", id: "user_preference_cuisine_preference_Spanish" %>
-
-  <%= f.label "German" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "German", id: "user_preference_cuisine_preference_German" %>
-
-  <%= f.label "Thai" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Thai", id: "user_preference_cuisine_preference_Thai" %>
-
-  <%= f.label "Moroccan" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Moroccan", id: "user_preference_cuisine_preference_Moroccan" %>
-
-  <%= f.label "Irish" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Irish", id: "user_preference_cuisine_preference_Irish" %>
-
-  <%= f.label "Japanese" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Japanese", id: "user_preference_cuisine_preference_Japanese" %>
-
-  <%= f.label "Cuban" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Cuban", id: "user_preference_cuisine_preference_Cuban" %>
-
-  <%= f.label "Hawaiin" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Hawaiin", id: "user_preference_cuisine_preference_Hawaiin" %>
-
-  <%= f.label "Swedish" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Swedish", id: "user_preference_cuisine_preference_Swedish" %>
-
-  <%= f.label "Hungarian" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Hungarian", id: "user_preference_cuisine_preference_Hungarian" %>
-
-  <%= f.label "Portugese" %>
-  <%= check_box_tag "user_preference[cuisine_preference][]", "Portugese", id: "user_preference_cuisine_preference_Portugese" %>
-  <p>
+  <% Recipe::YUMMLY_SEARCH_VALUES.each do |search_value| %>
+    <%= f.label search_value['name'] %>
+    <%= check_box_tag "user_preference[cuisine_preference][]", search_value['name'] %>
+  <% end %>
   <%= f.submit "Let's Plan" %>
 <% end %>
