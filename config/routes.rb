@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resource :calendar, only: [] do
       get :week
       get :day
+      post :event
   end
   resources :recipes
+
 
 end

@@ -12,4 +12,11 @@ class CalendarsController < ApplicationController
     @calendar = Calendar.new(request.headers['HTTP_X_BOWTIE_USER_GOOGLE_OAUTH2_TOKEN'])
   end
 
+  def event
+    @recipe = Recipe.find_recipe(params[:recipe_id])
+    @calendar = Calendar.new(request.headers['HTTP_X_BOWTIE_USER_GOOGLE_OAUTH2_TOKEN'])
+    @calendar.create_event(start: params[:start], end: params[:end], recipe: @recipe)
+    redirect_to week_calendar_path
+  end
+
 end

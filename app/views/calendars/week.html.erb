@@ -1,4 +1,9 @@
 <h2>Plan the rest of the week's meals:</h2>
+
+<% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %>
+
 <% @calendar.days.each do |day| %>
   <% if day.date > Date.today %>
     <h2><%= day.name %></h2>
@@ -30,7 +35,7 @@
                 </span>
               <% end %>
             <% else %>
-              <%= link_to "I want dinner this hour", recipes_path %>
+              <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) %>
             <% end %>
           </td>
         <% end %>

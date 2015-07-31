@@ -22,13 +22,38 @@ class Event
       }
     end
 
+    def create(token, params)
+      event = {
+        'summary' => params[:recipe].summary,
+        'description' => params[:recipe].description,
+        'start' => {
+          'dateTime' => params[:start],
+          'timeZone' => 'America/Los_Angeles',
+        },
+        'end' => {
+          'dateTime' => params[:end],
+          'timeZone' => 'America/Los_Angeles',
+        }
+      }
+
+      client = api_client(token)
+      service = client.discovered_api('calendar', 'v3')
+      response = client.execute(
+        api_method: service.events.insert,
+        parameters: {
+          'calendarId'  => 'primary'
+        },
+        body_object: event
+      )
+      # event = response.data
+    end
+
     private
 
     def api_client(token)
       client = Google::APIClient.new
       client.authorization.access_token = token
       client
-
     end
   end
 
@@ -38,6 +63,10 @@ class Event
 
   def time
     @time ||= Time.parse(@google_event_data["start"]["dateTime"])
+  end
+
+  def end_time
+    @end_time ||= Time.parse(@google_event_data["end"]["dateTime"])
   end
 
   def day

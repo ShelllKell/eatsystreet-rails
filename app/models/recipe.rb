@@ -1,5 +1,6 @@
-class Recipe
+Recipe = Struct.new(:name, :rating, :ingredients, :total_time, :id) do
   class << self
+
     def search_recipes(user_preference)
       cuisine_search_values = user_preference.cuisine_preference.collect { |preference|
         YUMMLY_SEARCH_VALUES.detect { |search_value|
@@ -8,23 +9,33 @@ class Recipe
       }.compact
 
       search_params = {
-        'allowedCuisine' => cuisine_search_values
-        # 'maxTotalTimeInSeconds': 3600, #this will need to depend on google calendar time slot
+        'allowedCuisine' => cuisine_search_values,
+        'maxTotalTimeInSeconds' => 3600
       }
 
       response = RestClient.get search_endpoint_url(search_params)
       response = JSON.parse(response)
 
-      # binding.pry
-      three = response["matches"].shuffle[0..2]
-
-      three.map do |i|
-        [i["recipeName"], i["rating"], i["ingredients"], i["totalTimeInSeconds"]]
+      random_recipes = response["matches"].shuffle[0..2]
+      random_recipes.map do |i|
+        Recipe.new(i["recipeName"], i["rating"], i["ingredients"], i["totalTimeInSeconds"], i["id"])
       end
+    end
 
+    def find_recipe(recipe_id)
+      response = RestClient.get find_endpoint_url(recipe_id)
+      response = JSON.parse(response)
+
+      Recipe.new(response['name'],
+        response['rating'],
+        response['ingredientLines'].join("\n"),
+        response['totalTimeInSeconds'],
+        response['id']
+        )
     end
 
     private
+
     def search_endpoint_url(search_params)
       uri = URI.parse("https://api.yummly.com")
       uri.path = "/v1/api/recipes"
@@ -35,7 +46,27 @@ class Recipe
 
       uri.to_s
     end
+
+    def find_endpoint_url(recipe_id)
+      uri = URI.parse("https://api.yummly.com")
+      uri.path = "/v1/api/recipe/#{recipe_id}"
+      uri.query = {
+        _app_key: ENV["YUMMLY_APP_KEY"],
+        _app_id: ENV["YUMMLY_APP_ID"],
+      }.to_query
+
+      uri.to_s
+    end
   end
+
+  def summary
+    "Dinner plan: #{name}"
+  end
+
+  def description
+    ingredients
+  end
+
 
   YUMMLY_SEARCH_VALUES = JSON.parse(<<-EOT
   [

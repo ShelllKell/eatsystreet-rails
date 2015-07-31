@@ -1,22 +1,24 @@
 
-<% @recipes.each do |detail| %>
+<% @recipes.each do |recipe| %>
   <ul>
     Recipe Name:
-    <%= detail[0] %>
+    <%= recipe.name %>
   </ul>
   <ul>
     Rating:
-    <%= detail[1] %>
+    <%= recipe.rating %>
   </ul>
   <ul>
     Ingredients:
-    <% detail[2].each do |ingredient| %>
+    <% recipe.ingredients.each do |ingredient| %>
       <li><%= ingredient %></li>
     <% end %>
   </ul>
   <ul>
     Prep time:
-    <%= detail[3] / 60 %> minutes
+    <%= recipe.total_time / 60 %> minutes
   </ul>
+
+  <%= link_to "I choose you.", event_calendar_path(start: params[:start], end: params[:end], recipe_id: recipe.id), method: :post %>
 ____________________________________
 <% end %>

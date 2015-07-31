@@ -2,13 +2,16 @@ class Calendar
 
   def initialize(token)
     @token = token
-    @events = Event.all_events(token, start, stop)
+  end
+
+  def events
+    @events ||= Event.all_events(@token, start, stop)
   end
 
   def days
     5.times.collect { |days_since_start|
       day_date = start + days_since_start
-      events_for_day = @events.select { |event| event.time.to_date == day_date }
+      events_for_day = events.select { |event| event.time.to_date == day_date }
       Day.new(day_date, events_for_day)
     }
   end
@@ -21,6 +24,10 @@ class Calendar
     _stop = start + 5
   end
 
+  def create_event(params)
+    Event.create(@token, params)
+  end
+
   class Day
 
     def initialize(date, events)
@@ -31,7 +38,13 @@ class Calendar
     def hours
       [17, 18, 19, 20, 21].collect { |hour_of_day|
         hour_time = @date.to_time + hour_of_day.hours
-        events_for_hour = @events.select { |event| hour_time <= event.time && hour_time + 1.hour > event.time }
+        events_for_hour = @events.select { |event|
+          hour_start_time = hour_time
+          hour_end_time = hour_time + 1.hour
+
+          (event.time >= hour_start_time && event.time < hour_end_time) ||
+            (event.end_time > hour_start_time && event.end_time <= hour_end_time)
+        }
         Hour.new(hour_time, events_for_hour)
       }
     end
@@ -62,6 +75,14 @@ class Calendar
 
     def name
       @time.strftime("%l %P")
+    end
+
+    def start_rfc3339
+      DateTime.parse(@time.to_s).rfc3339
+    end
+
+    def end_rfc3339
+      DateTime.parse((@time + 1.hour).to_s).rfc3339
     end
   end
 
