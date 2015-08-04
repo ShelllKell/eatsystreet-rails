@@ -32,10 +32,10 @@
               <% hour.events.each do |event| %>
                 <span class="event-name">
                   <%= event.name %>
+                <% end %>
                 </span>
-              <% end %>
             <% else %>
-              <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) %>
+              <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) unless day.has_dinner_plan? %>
             <% end %>
           </td>
         <% end %>

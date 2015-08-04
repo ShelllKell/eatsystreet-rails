@@ -85,6 +85,10 @@ class Event
     @google_event_data["summary"]
   end
 
+  def description
+    @google_event_data["description"]
+  end
+
   def all_day?
     !@google_event_data["start"]["dateTime"]
   end
@@ -93,4 +97,7 @@ class Event
     time.to_s.split[0] == Time.now.to_s.split[0]
   end
 
+  def is_dinner_plan?
+    name.start_with?('Dinner')
+  end
 end

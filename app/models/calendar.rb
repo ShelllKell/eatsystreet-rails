@@ -28,6 +28,7 @@ class Calendar
     Event.create(@token, params)
   end
 
+
   class Day
 
     def initialize(date, events)
@@ -60,6 +61,13 @@ class Calendar
     def date
       @date.to_time
     end
+
+    def has_dinner_plan?
+      @events.any? { |event|
+        event.is_dinner_plan?
+      }
+    end
+
   end
 
   class Hour
@@ -84,6 +92,7 @@ class Calendar
     def end_rfc3339
       DateTime.parse((@time + 1.hour).to_s).rfc3339
     end
+
   end
 
 end
