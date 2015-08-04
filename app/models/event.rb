@@ -100,4 +100,5 @@ class Event
   def is_dinner_plan?
     name.start_with?('Dinner')
   end
+
 end

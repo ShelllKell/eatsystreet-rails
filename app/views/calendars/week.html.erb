@@ -1,45 +1,54 @@
-<h2>Plan the rest of the week's meals:</h2>
+<% if @calendar.days.all? {|day| day.has_dinner_plan? } && !params[:force] %>
+  <%= link_to "Take me to my Google Calendar!", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+<p>
+  <%= link_to "Review my EatsyStreet dinner plan", week_calendar_path(force: true) %>
+<% else %>
 
-<% if flash[:notice] %>
+  <h2>Plan the rest of the week's meals:</h2>
+
+  <% if flash[:notice] %>
   <%= flash[:notice] %>
-<% end %>
+  <% end %>
 
-<% @calendar.days.each do |day| %>
-  <% if day.date > Date.today %>
+  <% @calendar.days.each do |day| %>
+    <% if day.date > Date.today %>
     <h2><%= day.name %></h2>
 
     <h4>
       <%- if day.today? -%>
-        Choose Dinner Time for Tonight:
+      Choose Dinner Time for Tonight:
       <%- else -%>
-        Choose Dinner Time for <%= day.name %>:
+      Choose Dinner Time for <%= day.name %>:
       <%- end -%>
     </h4>
 
     <table>
       <tr>
         <% day.hours.each do |hour| %>
-          <th>
-            <%= hour.name %>
-          </th>
+        <th>
+          <%= hour.name %>
+        </th>
         <% end %>
       </tr>
 
       <tr>
         <% day.hours.each do |hour| %>
-          <td>
-            <% if hour.events.length > 0 %>
-              <% hour.events.each do |event| %>
-                <span class="event-name">
-                  <%= event.name %>
-                <% end %>
-                </span>
-            <% else %>
-              <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) unless day.has_dinner_plan? %>
+        <td>
+          <% if hour.events.length > 0 %>
+            <% hour.events.each do |event| %>
+            <span class="event-name">
+              <%= event.name %>
             <% end %>
-          </td>
+            </span>
+          <% else %>
+            <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) unless day.has_dinner_plan? %>
+          <% end %>
+        </td>
         <% end %>
       </tr>
     </table>
+    <% end %>
   <% end %>
 <% end %>
+<p>
+<%= link_to "Make Edits", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>

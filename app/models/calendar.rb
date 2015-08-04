@@ -9,7 +9,7 @@ class Calendar
   end
 
   def days
-    5.times.collect { |days_since_start|
+    (stop - start + 1).to_i.times.collect { |days_since_start|
       day_date = start + days_since_start
       events_for_day = events.select { |event| event.time.to_date == day_date }
       Day.new(day_date, events_for_day)
@@ -17,17 +17,16 @@ class Calendar
   end
 
   def start
-    _start = Date.today.beginning_of_week
+    _start = Date.today
   end
 
   def stop
-    _stop = start + 5
+    _stop = Date.today.beginning_of_week + 4
   end
 
   def create_event(params)
     Event.create(@token, params)
   end
-
 
   class Day
 

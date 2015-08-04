@@ -1,4 +1,4 @@
-Recipe = Struct.new(:name, :rating, :ingredients, :total_time, :id) do
+Recipe = Struct.new(:name, :rating, :ingredients, :total_time, :directions, :id) do
   class << self
 
     def search_recipes(user_preference)
@@ -18,8 +18,10 @@ Recipe = Struct.new(:name, :rating, :ingredients, :total_time, :id) do
 
       random_recipes = response["matches"].shuffle[0..2]
       random_recipes.map do |i|
-        Recipe.new(i["recipeName"], i["rating"], i["ingredients"], i["totalTimeInSeconds"], i["id"])
+        Recipe.new(i["recipeName"], i["rating"], i["ingredients"], i["totalTimeInSeconds"], i["source"], i["id"])
       end
+
+
     end
 
     def find_recipe(recipe_id)
@@ -30,6 +32,7 @@ Recipe = Struct.new(:name, :rating, :ingredients, :total_time, :id) do
         response['rating'],
         response['ingredientLines'].join("\n"),
         response['totalTimeInSeconds'],
+        response["source"]['sourceRecipeUrl'],
         response['id']
         )
     end
@@ -64,7 +67,7 @@ Recipe = Struct.new(:name, :rating, :ingredients, :total_time, :id) do
   end
 
   def description
-    ingredients
+    "#{ingredients}\n\nDirections: #{directions}"
   end
 
 
