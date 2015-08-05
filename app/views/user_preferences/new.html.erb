@@ -2,8 +2,10 @@
 
 <%= form_for @user_preference do |f| %>
   <% Recipe::YUMMLY_SEARCH_VALUES.each do |search_value| %>
-    <%= f.label search_value['name'] %>
-    <%= check_box_tag "user_preference[cuisine_preference][]", search_value['name'] %>
+    <div class='food-preference'>
+      <%= check_box_tag "user_preference[cuisine_preference][]", search_value['name'] %>
+      <%= f.label search_value['name'] %>
   <% end %>
+  </div>
   <%= f.submit "Let's Plan" %>
 <% end %>

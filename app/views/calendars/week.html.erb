@@ -4,7 +4,7 @@
   <%= link_to "Review my EatsyStreet dinner plan", week_calendar_path(force: true) %>
 <% else %>
 
-  <h2>Plan the rest of the week's meals:</h2>
+  <h1>Plan the rest of the week's meals:</h1>
 
   <% if flash[:notice] %>
   <%= flash[:notice] %>
@@ -50,5 +50,9 @@
     <% end %>
   <% end %>
 <% end %>
-<p>
-<%= link_to "Make Edits", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+
+<br>
+
+<button class="btn btn-default">
+  <%= link_to "Make Edits", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+</button>
