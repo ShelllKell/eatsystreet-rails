@@ -1,7 +1,14 @@
 <% if @calendar.days.all? {|day| day.has_dinner_plan? } && !params[:force] %>
+<div class='google-calendar'>
+<button class="btn btn-default">
   <%= link_to "Take me to my Google Calendar!", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
-<p>
+</button>
+</div>
+<div class='review-button'>
+<button class="btn btn-default">
   <%= link_to "Review my EatsyStreet dinner plan", week_calendar_path(force: true) %>
+</button>
+</div>
 <% else %>
 
   <h1>Plan the rest of the week's meals:</h1>
@@ -47,12 +54,14 @@
         <% end %>
       </tr>
     </table>
+    <br>
     <% end %>
   <% end %>
 <% end %>
 
-<br>
 
-<button class="btn btn-default">
-  <%= link_to "Make Edits", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
-</button>
+<div class='make-edits'>
+  <button class="btn btn-default">
+    <%= link_to "Make Edits", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+  </button>
+</div>

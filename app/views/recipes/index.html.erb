@@ -1,12 +1,12 @@
-
 <% @recipes.each do |recipe| %>
   <ul>
+    <br>
     Recipe Name:
-    <%= recipe.name %>
+    <h3><%= recipe.name %></h3>
   </ul>
   <ul>
     Rating:
-    <%= recipe.rating %>
+    <h3><%= recipe.rating %></h3>
   </ul>
   <ul>
     Ingredients:
@@ -16,9 +16,9 @@
   </ul>
   <ul>
     Prep time:
-    <%= recipe.total_time / 60 %> minutes
+    <h3><%= recipe.total_time / 60 %> minutes </h3>
   </ul>
-
+<button class="btn btn-default">
   <%= link_to "I choose you.", event_calendar_path(start: params[:start], end: params[:end], recipe_id: recipe.id), method: :post %>
-____________________________________
+</button>
 <% end %>
