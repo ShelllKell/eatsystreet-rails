@@ -6,6 +6,8 @@ gem 'dotenv-rails', '~> 2.0.2'
 
 gem 'rest-client', '~> 1.8.0'
 
+gem 'rails_12factor', '~> 0.0.3'
+
 gem 'google-api-client', :require => 'google/api_client'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
