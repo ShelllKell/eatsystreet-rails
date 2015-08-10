@@ -54,7 +54,7 @@ class Calendar
     end
 
     def today?
-      @date == Date.today
+      @date == Date.today.in_time_zone
     end
 
     def date
