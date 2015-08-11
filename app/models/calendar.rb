@@ -17,12 +17,11 @@ class Calendar
   end
 
   def start
-    _start = Date.today.in_time_zone
+    _start = Date.today
   end
 
   def stop
     _stop = Date.today.beginning_of_week + 4
-    _stop.in_time_zone
   end
 
   def create_event(params)
@@ -55,7 +54,7 @@ class Calendar
     end
 
     def today?
-      @date == Date.today.in_time_zone
+      @date == Date.today
     end
 
     def date
