@@ -1,60 +1,62 @@
 <% if @calendar.days.all? {|day| day.has_dinner_plan? } && !params[:force] %>
-<div class='google-calendar'>
-<button class="btn btn-default">
-  <%= link_to "Take me to my Google Calendar!", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
-</button>
-</div>
-<div class='review-button'>
-<button class="btn btn-default">
-  <%= link_to "Review my EatsyStreet dinner plan", week_calendar_path(force: true) %>
-</button>
-</div>
+  <div class='google-calendar'>
+    <button class="btn btn-default">
+      <%= link_to "Take me to my Google Calendar!", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+    </button>
+  </div>
+
+  <div class='review-button'>
+    <button class="btn btn-default">
+      <%= link_to "Review my EatsyStreet dinner plan", week_calendar_path(force: true) %>
+    </button>
+  </div>
+
 <% else %>
+
+  <% if flash[:notice] %>
+    <%= flash[:notice] %>
+  <% end %>
 
   <h1>Plan the rest of the week's meals:</h1>
 
-  <% if flash[:notice] %>
-  <%= flash[:notice] %>
-  <% end %>
-
   <% @calendar.days.each do |day| %>
-    <% if day.date > Date.today %>
-    <h2><%= day.name %></h2>
+    <% if day.date >= day.todays_time_in_zone %>
+      <h2><%= day.name %></h2>
 
-    <h4>
-      <%- if day.today? -%>
-      Choose Dinner Time for Tonight:
-      <%- else -%>
-      Choose Dinner Time for <%= day.name %>:
-      <%- end -%>
-    </h4>
+      <h4>
+        <%- if day.today? -%>
+        Choose Dinner Time for Tonight:
+        <%- else -%>
+        Choose Dinner Time for <%= day.name %>:
+        <%- end -%>
+      </h4>
 
-    <table>
-      <tr>
-        <% day.hours.each do |hour| %>
-        <th>
-          <%= hour.name %>
-        </th>
-        <% end %>
-      </tr>
-
-      <tr>
-        <% day.hours.each do |hour| %>
-        <td>
-          <% if hour.events.length > 0 %>
-            <% hour.events.each do |event| %>
-            <span class="event-name">
-              <%= event.name %>
-            <% end %>
-            </span>
-          <% else %>
-            <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) unless day.has_dinner_plan? %>
+      <table>
+        <tr>
+          <% day.hours.each do |hour| %>
+          <th>
+            <%= hour.name %>
+          </th>
           <% end %>
-        </td>
-        <% end %>
-      </tr>
-    </table>
-    <br>
+        </tr>
+
+        <tr>
+          <% day.hours.each do |hour| %>
+          <td>
+            <% if hour.events.length > 0 %>
+              <% hour.events.each do |event| %>
+              <span class="event-name">
+                <%= event.name %>
+              <% end %>
+              </span>
+            <% else %>
+              <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) unless day.has_dinner_plan? %>
+            <% end %>
+          </td>
+          <% end %>
+        </tr>
+      </table>
+      <br>
     <% end %>
   <% end %>
 <% end %>

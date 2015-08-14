@@ -1,0 +1,63 @@
+<% if @calendar.days.all? {|day| day.has_dinner_plan? } && !params[:force] %>
+  <div class='google-calendar'>
+    <button class="btn btn-default">
+      <%= link_to "Take me to my Google Calendar!", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+    </button>
+  </div>
+
+  <div class='review-button'>
+    <button class="btn btn-default">
+      <%= link_to "Review my EatsyStreet dinner plan", week_calendar_path(force: true) %>
+    </button>
+  </div>
+
+<% else %>
+
+  <% if flash[:notice] %>
+    <%= flash[:notice] %>
+  <% end %>
+
+  <h1>Choose Dinner Time For Tonight:</h1>
+
+  <% @calendar.days.each do |day| %>
+    <% if day.today? %>
+      <h2><%= day.name %></h2>
+
+
+    <table>
+      <tr>
+        <% day.hours.each do |hour| %>
+        <th>
+          <%= hour.name %>
+        </th>
+        <% end %>
+      </tr>
+
+      <tr>
+        <% day.hours.each do |hour| %>
+        <td>
+          <% if hour.events.length > 0 %>
+            <% hour.events.each do |event| %>
+            <span class="event-name">
+              <%= event.name %>
+            <% end %>
+            </span>
+          <% else %>
+            <%= link_to "I want dinner this hour", recipes_path(start: hour.start_rfc3339, end: hour.end_rfc3339) unless day.has_dinner_plan? %>
+          <% end %>
+        </td>
+        <% end %>
+      </tr>
+    </table>
+    <% end %>
+    <br>
+
+  <% end %>
+<% end %>
+
+
+<div class='make-edits'>
+  <button class="btn btn-default">
+    <%= link_to "Make Edits", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+  </button>
+</div>

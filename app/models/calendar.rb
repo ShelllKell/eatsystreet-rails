@@ -1,4 +1,7 @@
 class Calendar
+  TIME_ZONE = 'Mountain Time (US & Canada)'
+
+  Calendar::TIME_ZONE
 
   def initialize(token)
     @token = token
@@ -17,11 +20,15 @@ class Calendar
   end
 
   def start
-    _start = Date.today
+    _start = today
   end
 
   def stop
-    _stop = Date.today.beginning_of_week + 4
+    _stop = today.beginning_of_week + 4
+  end
+
+  def today
+    DateTime.now.in_time_zone(TIME_ZONE).to_date
   end
 
   def create_event(params)
@@ -54,11 +61,15 @@ class Calendar
     end
 
     def today?
-      @date == Date.today
+      @date == DateTime.now.in_time_zone(TIME_ZONE).to_date
     end
 
     def date
-      @date.to_time
+      @date
+    end
+
+    def todays_time_in_zone
+      DateTime.now.in_time_zone(TIME_ZONE).to_date
     end
 
     def has_dinner_plan?
@@ -85,11 +96,11 @@ class Calendar
     end
 
     def start_rfc3339
-      DateTime.parse(@time.to_s).rfc3339
+      DateTime.parse(@time.to_s).in_time_zone(TIME_ZONE).to_date.rfc3339
     end
 
     def end_rfc3339
-      DateTime.parse((@time + 1.hour).to_s).rfc3339
+      DateTime.parse((@time + 1.hour).to_s).in_time_zone(TIME_ZONE).to_date.rfc3339
     end
 
   end

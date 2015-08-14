@@ -45,7 +45,6 @@ class Event
         },
         body_object: event
       )
-      # event = response.data
     end
 
     private
