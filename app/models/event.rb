@@ -28,11 +28,11 @@ class Event
         'description' => params[:recipe].description,
         'start' => {
           'dateTime' => params[:start],
-          'timeZone' => 'America/Los_Angeles',
+          'timeZone' => 'America/Denver',
         },
         'end' => {
           'dateTime' => params[:end],
-          'timeZone' => 'America/Los_Angeles',
+          'timeZone' => 'America/Denver',
         }
       }
 
@@ -93,7 +93,8 @@ class Event
   end
 
   def today?
-    time.to_s.split[0] == Time.now.to_s.split[0]
+    # time.to_s.split[0] == Time.now.to_s.split[0]
+    time.to_s.split[0] == DateTime.now.in_time_zone('Mountain Time (US & Canada)').to_s.split[0]
   end
 
   def is_dinner_plan?

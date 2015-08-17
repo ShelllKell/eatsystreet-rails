@@ -96,11 +96,13 @@ class Calendar
     end
 
     def start_rfc3339
-      DateTime.parse(@time.to_s).in_time_zone(TIME_ZONE).to_date.rfc3339
+      # DateTime.parse(@time.to_s).rfc3339.in_time_zone('Mountain Time (US & Canada)')
+      DateTime.parse(@time.to_s).in_time_zone(TIME_ZONE).rfc3339
     end
 
     def end_rfc3339
-      DateTime.parse((@time + 1.hour).to_s).in_time_zone(TIME_ZONE).to_date.rfc3339
+      # DateTime.parse((@time + 1.hour).to_s).rfc3339.in_time_zone('Mountain Time (US & Canada)')
+      DateTime.parse((@time + 1.hour).to_s).in_time_zone(TIME_ZONE).rfc3339
     end
 
   end
