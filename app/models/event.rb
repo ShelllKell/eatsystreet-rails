@@ -27,11 +27,11 @@ class Event
         'summary' => params[:recipe].summary,
         'description' => params[:recipe].description,
         'start' => {
-          'dateTime' => params[:start],
+          'dateTime' => params[:start].chomp('+00:00'),
           'timeZone' => 'America/Denver',
         },
         'end' => {
-          'dateTime' => params[:end],
+          'dateTime' => params[:end].chomp('+00:00'),
           'timeZone' => 'America/Denver',
         }
       }
