@@ -61,11 +61,11 @@ class Event
   end
 
   def time
-    @time ||= Time.parse(@google_event_data["start"]["dateTime"])
+    @time ||= DateTime.parse(@google_event_data["start"]["dateTime"]).in_time_zone('Mountain Time (US & Canada)')
   end
 
   def end_time
-    @end_time ||= Time.parse(@google_event_data["end"]["dateTime"])
+    @end_time ||= DateTime.parse(@google_event_data["start"]["dateTime"]).in_time_zone('Mountain Time (US & Canada)')
   end
 
   def day
@@ -93,7 +93,6 @@ class Event
   end
 
   def today?
-    # time.to_s.split[0] == Time.now.to_s.split[0]
     time.to_s.split[0] == DateTime.now.in_time_zone('Mountain Time (US & Canada)').to_s.split[0]
   end
 

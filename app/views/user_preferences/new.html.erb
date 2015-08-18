@@ -1,11 +1,13 @@
-<h1>Pick your cuisine preferences:</h1>
+<div class='page'>
+  <h1>Pick your cuisine preferences:</h1>
 
-<%= form_for @user_preference do |f| %>
-  <% Recipe::YUMMLY_SEARCH_VALUES.each do |search_value| %>
+  <%= form_for @user_preference do |f| %>
+    <% Recipe::YUMMLY_SEARCH_VALUES.each do |search_value| %>
     <div class='food-preference'>
       <%= check_box_tag "user_preference[cuisine_preference][]", search_value['name'] %>
       <%= f.label search_value['name'] %>
+    <% end %>
+    </div>
+  <button class="btn btn-default" type="submit" name="commit">Let's Plan</button>
   <% end %>
-  </div>
-<button class="btn btn-default" type="submit" name="commit">Let's Plan</button>
-<% end %>
+</div>
