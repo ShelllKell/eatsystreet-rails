@@ -27,11 +27,11 @@ class Event
         'summary' => params[:recipe].summary,
         'description' => params[:recipe].description,
         'start' => {
-          'dateTime' => params[:start].gsub("+00:00", "-06:00"),
+          'dateTime' => params[:start].gsub("+00:00", "-12:00"),
           'timeZone' => 'America/Denver',
         },
         'end' => {
-          'dateTime' => params[:end].gsub("+00:00", "-06:00"),
+          'dateTime' => params[:end].gsub("+00:00", "-12:00"),
           'timeZone' => 'America/Denver',
         }
       }
