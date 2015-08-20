@@ -1,28 +1,8 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<h1>Eatsystreet</h1>
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+EatsyStreet is a Rails backend application that connects to a BowTie frontend. It allows users to pick their cuisine preferences, select an open time slot in their evenings, and then populates their schedules with recipes to cook for themselves and their families.
+
+Each users' Google Calendar is integrated with the application so that they can easily see what their daily schedule looks like, and how much time they have for dinner each night. The recipe they ultimately select will be posted into their Google account so they can view their dinner plans amongst their daily schedule when viewing it on their Google Calendar.
+
+This application is hosted on Bowtie.io and uses the Google Calendar API, and the Yummly API.
