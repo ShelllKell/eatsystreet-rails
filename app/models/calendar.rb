@@ -14,9 +14,12 @@ class Calendar
   def days
     (stop - start + 1).to_i.times.collect { |days_since_start|
       day_date = start + days_since_start
-      events_for_day = events.select { |event| event.time.in_time_zone('Mountain Time (US & Canada)').to_date == day_date }
+      events_for_day = events.select { |event|
+        event.time.in_time_zone('Mountain Time (US & Canada)').to_date == day_date
+      }
 
       Day.new(day_date, events_for_day)
+
     }
   end
 
@@ -47,6 +50,7 @@ class Calendar
       [17, 18, 19, 20, 21].collect { |hour_of_day|
         hour_time = @date.to_time + hour_of_day.hours
         events_for_hour = @events.select { |event|
+
           hour_start_time = hour_time
           hour_end_time = hour_time + 1.hour
 
@@ -55,7 +59,6 @@ class Calendar
         }
         Hour.new(hour_time, events_for_hour)
       }
-
     end
 
     def name

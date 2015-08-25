@@ -10,8 +10,9 @@ class Event
           'calendarId'  => 'primary',
           'start.date'  => start.to_s,
           'end.date'    => stop.to_s
-          }
+        }
       )
+
 
       response = JSON.parse(response.body)
 
