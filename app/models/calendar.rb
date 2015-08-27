@@ -15,7 +15,7 @@ class Calendar
     (stop - start + 1).to_i.times.collect { |days_since_start|
       day_date = start + days_since_start
       events_for_day = events.select { |event|
-        event.time.in_time_zone('Mountain Time (US & Canada)').to_date == day_date
+        event.time.in_time_zone(TIME_ZONE).to_date == day_date
       }
 
       Day.new(day_date, events_for_day)
@@ -32,7 +32,11 @@ class Calendar
   end
 
   def today
-    DateTime.now.in_time_zone(TIME_ZONE).to_date
+    now.in_time_zone(TIME_ZONE).to_date
+  end
+
+  def now
+    DateTime.now
   end
 
   def create_event(params)
@@ -54,8 +58,14 @@ class Calendar
           hour_start_time = hour_time
           hour_end_time = hour_time + 1.hour
 
-          (event.time >= hour_start_time && event.time < hour_end_time) ||
-            (event.end_time > hour_start_time && event.end_time <= hour_end_time)
+          # binding.pry if hour_of_day == 19 && @date.day == 27
+          # binding.pry
+          (event.time..event.end_time).overlaps?(hour_start_time...hour_end_time) #we want this to be false
+          #(7..9) covers (6..7)
+          #user cover instead of overlap
+          #find exclude_end?
+          #rewrite overlap up there ^^
+
         }
         Hour.new(hour_time, events_for_hour)
       }
@@ -77,6 +87,10 @@ class Calendar
       DateTime.now.in_time_zone(TIME_ZONE).to_date
     end
 
+    def events
+      @events
+    end
+
     def has_dinner_plan?
       @events.any? { |event|
         event.is_dinner_plan?
@@ -94,6 +108,10 @@ class Calendar
 
     def events
       @events
+    end
+
+    def hour
+      @time.hour
     end
 
     def name

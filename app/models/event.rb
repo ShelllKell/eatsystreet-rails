@@ -2,21 +2,7 @@ class Event
   class << self
 
     def all_events(token, start, stop)
-      client = api_client(token)
-      service = client.discovered_api('calendar', 'v3')
-      response = client.execute(
-        api_method: service.events.list,
-        parameters: {
-          'calendarId'  => 'primary',
-          'start.date'  => start.to_s,
-          'end.date'    => stop.to_s
-        }
-      )
-
-
-      response = JSON.parse(response.body)
-
-      response["items"].collect { |event|
+      events_from_google(token, start, stop).collect { |event|
         Event.new(event)
       }.select { |event|
         !event.all_day?
@@ -55,6 +41,23 @@ class Event
       client.authorization.access_token = token
       client
     end
+
+    def events_from_google(token, start, stop)
+      client = api_client(token)
+      service = client.discovered_api('calendar', 'v3')
+      response = client.execute(
+        api_method: service.events.list,
+        parameters: {
+          'calendarId'  => 'primary',
+          'start.date'  => start.to_s,
+          'end.date'    => stop.to_s
+        }
+      )
+
+      response = JSON.parse(response.body)
+
+      response["items"]
+    end
   end
 
   def initialize(google_event_data)
@@ -66,7 +69,7 @@ class Event
   end
 
   def end_time
-    @end_time ||= DateTime.parse(@google_event_data["start"]["dateTime"]).in_time_zone('Mountain Time (US & Canada)')
+    @end_time ||= DateTime.parse(@google_event_data["end"]["dateTime"]).in_time_zone('Mountain Time (US & Canada)')
   end
 
   def day
