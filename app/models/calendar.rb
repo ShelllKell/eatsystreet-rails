@@ -57,7 +57,7 @@ class Calendar
 
           hour_start_time = hour_time
           hour_end_time = hour_time + 1.hour
-          
+
           (event.time...event.end_time).overlaps?(hour_start_time...hour_end_time)
         }
         Hour.new(hour_time, events_for_hour)
