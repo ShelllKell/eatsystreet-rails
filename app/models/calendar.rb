@@ -66,7 +66,7 @@ class Calendar
     end
 
     def name
-      @date.strftime("%A")
+      @date.in_time_zone(TIME_ZONE).to_date.strftime("%A")
     end
 
     def today?
