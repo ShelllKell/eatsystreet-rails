@@ -52,19 +52,13 @@ class Calendar
 
     def hours
       [17, 18, 19, 20, 21].collect { |hour_of_day|
-        hour_time = @date.to_time + hour_of_day.hours
+        hour_time = @date.in_time_zone(TIME_ZONE).to_time + hour_of_day.hours
         events_for_hour = @events.select { |event|
 
           hour_start_time = hour_time
           hour_end_time = hour_time + 1.hour
 
-          # binding.pry if hour_of_day == 19 && @date.day == 27
-          # binding.pry
-          (event.time..event.end_time).overlaps?(hour_start_time...hour_end_time) #we want this to be false
-          #(7..9) covers (6..7)
-          #user cover instead of overlap
-          #find exclude_end?
-          #rewrite overlap up there ^^
+          (event.time...event.end_time).overlaps?(hour_start_time...hour_end_time) #we want this to be false
 
         }
         Hour.new(hour_time, events_for_hour)
