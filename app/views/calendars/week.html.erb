@@ -24,14 +24,6 @@
       <% if day.date >= day.todays_time_in_zone %>
         <h2><%= day.name %></h2>
 
-        <h4>
-          <%- if day.today? -%>
-          Choose Dinner Time for Tonight:
-          <%- else -%>
-          Choose Dinner Time for <%= day.name %>:
-          <%- end -%>
-        </h4>
-
         <table>
           <tr>
             <% day.hours.each do |hour| %>
@@ -65,7 +57,7 @@
 
   <div class='make-edits'>
     <button class="btn btn-default">
-      <%= link_to "Make Edits", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
+      <%= link_to "Make Edits on Google Calendar", "https://www.google.com/calendar/b/1/render#main_7", target: "_blank" %>
     </button>
   </div>
 
