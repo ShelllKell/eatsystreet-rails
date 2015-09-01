@@ -18,7 +18,7 @@
       <%= flash[:notice] %>
     <% end %>
 
-    <h1>Plan the rest of the week's meals:</h1>
+    <div class="top-title">Plan the rest of the week's meals</div>
 
     <% @calendar.days.each do |day| %>
       <% if day.date >= day.todays_time_in_zone %>

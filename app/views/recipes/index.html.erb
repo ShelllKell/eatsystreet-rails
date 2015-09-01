@@ -1,49 +1,47 @@
 
 <!DOCTYPE html>
 <html>
-  <body>
+<body>
+<div class='top-title'>What's for Dinner?</div>
+  <div id="content">
+    <div class="section">
+      <div class="container wrapper">
+        <link rel="stylesheet" type="text/css" href="/css/components/user-list.css"/>
 
-      <div id="content">
-        <div class="section">
-          <div class="container wrapper">
-            <link rel="stylesheet" type="text/css" href="/css/components/user-list.css"/>
+        <ul>
+          <div class="row">
 
-            <div class="user-list list-group text-left">
-              <ul>
-                <% @recipes.each do |recipe| %>
-                <div class="recipe">
-                <a href="#" class="list-group-item ">
+            <% @recipes.each do |recipe| %>
+            <div class="col-md-3">
+              <div class="recipe-contents">
+                <span><h3><%= recipe.name %></h3></span>
 
-                  <img class="img-circle img" src="/img/user1.png">
-                  <span><h3><%= recipe.name %></h3></span>
+                <h4>Rating:</h4>
+                <h3><%= recipe.rating %></h3>
+                <h4>Ingredients:</h4>
 
-                  <h4>Rating:</h4>
-                  <h3><%= recipe.rating %></h3>
-                  <h4>Ingredients:</h4>
-
-                  <ul>
-                    <% recipe.ingredients.each do |ingredient| %>
-                    <li>
-                      <%= ingredient %>
-                    </li>
-                    <% end %>
-                  </ul>
-
-                  <h4>Prep Time:</h4>
-                  <h3><%= recipe.total_time / 60 %> minutes </h3>
-
-                  <%= link_to "I choose you.", event_calendar_path(start: params[:start], end: params[:end], recipe_id: recipe.id), method: :post, class: "btn btn-default" %>
-
-                </a>
-                  </div>
+                <ul>
+                  <% recipe.ingredients.each do |ingredient| %>
+                  <li>
+                    <%= ingredient %>
+                  </li>
                   <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+                </ul>
 
-  </body>
+                <h4>Prep Time:</h4>
+                <h3><%= recipe.total_time / 60 %> minutes </h3>
+
+                <%= link_to "Choose this recipe", event_calendar_path(start: params[:start], end: params[:end], recipe_id: recipe.id), method: :post, class: "btn btn-default" %>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</body>
 </html>
 
 <!--
